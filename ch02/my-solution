@@ -1,0 +1,11 @@
+#!/bin/bash 
+# Yes, book editors solution look simpler, but I think the point of the exercise is to use commands learned so far
+# 'awk ORS=OFS' looks for NEWLINE and repleace it with SPACE; I needed to grogle that, You can use 'tr' command instead.
+# I added stderr redirection, because stderr doesn't go to the pipe (did't know that). Looking about redirections some more on grogle and found nice solutions for the future problems
+# https://mywiki.wooledge.org/BashFAQ/047
+
+if [[ $# -ne 2 ]]; then
+  echo "Missing arguments for NAME and DOMAIN."
+  exit 1
+fi
+echo "${1},${2},$(ping -c 1 ${2} 2>&1 | awk ORS=OFS),$(date)" > output.csv 
